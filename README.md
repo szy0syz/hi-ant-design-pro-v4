@@ -66,3 +66,10 @@ yarn start:no-mock
   },
 }
 ```
+
+## 在tsx中添加png报错
+
+```ts
+// typings.d.ts
+declare module '*.png';
+```
