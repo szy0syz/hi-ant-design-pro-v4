@@ -84,6 +84,25 @@ export default {
   // umi routes: https://umijs.org/zh/guide/router.html
   routes: [
     {
+      path: '/user',
+      component: '../layouts/UserLayout',
+      routes: [
+        {
+          name: '用户注册',
+          path: '/user/register',
+          component: './user/register',
+        },
+        {
+          name: '注册成功',
+          path: '/user/register-result',
+          component: './user/register/result',
+        },
+        {
+          component: './404',
+        },
+      ],
+    },
+    {
       path: '/',
       component: '../layouts/BasicLayout',
       Routes: ['src/pages/Authorized'],
@@ -100,6 +119,17 @@ export default {
           icon: 'table',
           path: '/list/basic/list',
           component: './list/basic/list',
+        },
+        {
+          name: '用户注册',
+          icon: 'user',
+          path: '/user/register',
+          component: './user/register',
+        },
+        {
+          name: '提交成功',
+          path: '/result/success',
+          component: './result/success',
         },
         {
           component: './404',
