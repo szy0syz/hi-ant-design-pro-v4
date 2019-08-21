@@ -1,4 +1,4 @@
-import { DefaultFooter, MenuDataItem, getMenuData, getPageTitle } from '@ant-design/pro-layout';
+import { DefaultFooter, MenuDataItem, getMenuData, getPageTitle, DefaultFooter } from '@ant-design/pro-layout';
 import DocumentTitle from 'react-document-title';
 import Link from 'umi/link';
 import React from 'react';
@@ -13,6 +13,22 @@ export interface UserLayoutProps extends ConnectProps {
     [path: string]: MenuDataItem;
   };
 }
+
+const defaultLinks = [
+  {
+    key: 'Ant Design Pro',
+    title: 'Ant Design Pro',
+    href: 'https://pro.ant.design',
+    blankTarget: true,
+  },
+  {
+    key: 'Ant Design',
+    title: 'Ant Design',
+    href: 'https://ant.design',
+    blankTarget: true,
+  },
+];
+const defaultCopyright = '2019 云南城建物业集团公司';
 
 const UserLayout: React.SFC<UserLayoutProps> = props => {
   const {
@@ -52,7 +68,7 @@ const UserLayout: React.SFC<UserLayoutProps> = props => {
           </div>
           {children}
         </div>
-        <DefaultFooter />
+        <DefaultFooter links={defaultLinks} copyright={defaultCopyright} />
       </div>
     </DocumentTitle>
   );
