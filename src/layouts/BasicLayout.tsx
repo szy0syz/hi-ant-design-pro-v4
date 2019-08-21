@@ -3,7 +3,6 @@
  * You can view component api by:
  * https://github.com/ant-design/ant-design-pro-layout
  */
-
 import ProLayout, {
   MenuDataItem,
   BasicLayoutProps as ProLayoutProps,
@@ -13,8 +12,6 @@ import ProLayout, {
 import React, { useEffect } from 'react';
 import Link from 'umi/link';
 import { connect } from 'dva';
-import { formatMessage } from 'umi-plugin-react/locale';
-
 import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
 import { ConnectState, Dispatch } from '@/models/connect';
@@ -33,38 +30,40 @@ export type BasicLayoutContext = { [K in 'location']: BasicLayoutProps[K] } & {
     [path: string]: MenuDataItem;
   };
 };
-
-var defaultLinks = [{
-  key: 'Ant Design Pro',
-  title: 'Ant Design Pro',
-  href: 'https://pro.ant.design',
-  blankTarget: true
-}, {
-  key: 'Ant Design',
-  title: 'Ant Design',
-  href: 'https://ant.design',
-  blankTarget: true
-}];
-var defaultCopyright = '2019 云南城建物业集团公司';
-
+const defaultLinks = [
+  {
+    key: 'Ant Design Pro',
+    title: 'Ant Design Pro',
+    href: 'https://pro.ant.design',
+    blankTarget: true,
+  },
+  {
+    key: 'Ant Design',
+    title: 'Ant Design',
+    href: 'https://ant.design',
+    blankTarget: true,
+  },
+];
+const defaultCopyright = '2019 云南城建物业集团公司';
 /**
  * use Authorized check all menu item
  */
+
 const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
   menuList.map(item => {
-    const localItem = {
-      ...item,
-      children: item.children ? menuDataRender(item.children) : [],
-    };
+    const localItem = { ...item, children: item.children ? menuDataRender(item.children) : [] };
     return Authorized.check(item.authority, localItem, null) as MenuDataItem;
   });
 
 const footerRender: BasicLayoutProps['footerRender'] = (_, defaultDom) => {
   if (!isAntDesignPro()) {
-    return <>
-      <DefaultFooter links={defaultLinks} copyright={defaultCopyright} />
-    </>;
+    return (
+      <>
+        <DefaultFooter links={defaultLinks} copyright={defaultCopyright} />
+      </>
+    );
   }
+
   return (
     <>
       {defaultDom}
@@ -102,10 +101,10 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
       });
     }
   }, []);
-
   /**
    * init variables
    */
+
   const handleMenuCollapse = (payload: boolean): void =>
     dispatch &&
     dispatch({
@@ -121,15 +120,13 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
         if (menuItemProps.isUrl) {
           return defaultDom;
         }
+
         return <Link to={menuItemProps.path}>{defaultDom}</Link>;
       }}
       breadcrumbRender={(routers = []) => [
         {
           path: '/',
-          breadcrumbName: formatMessage({
-            id: 'menu.home',
-            defaultMessage: 'Home',
-          }),
+          breadcrumbName: '首页',
         },
         ...routers,
       ]}
@@ -143,7 +140,6 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
       }}
       footerRender={footerRender}
       menuDataRender={menuDataRender}
-      formatMessage={formatMessage}
       rightContentRender={rightProps => <RightContent {...rightProps} />}
       {...props}
       {...settings}

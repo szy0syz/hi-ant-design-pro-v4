@@ -29,3 +29,12 @@ const footerRender: BasicLayoutProps['footerRender'] = (_, defaultDom) => {
   // ...
 }
 ```
+
+## 配置umi区块的npm源
+
+```
+block: {
+  defaultGitUrl: 'https://github.com/ant-design/pro-blocks',
+  npmclient: 'cnpm',
+},
+```
